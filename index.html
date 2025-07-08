@@ -2,207 +2,274 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hai, I'm Abin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Fonts & Variables */
-    @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-    :root {
-      --bg: #0a0a0a;
-      --text: #e0e0e0;
-      --accent: #4fc3f7;
-      --muted: #888;
-      --card-bg: #161616;
-      --transition: 0.3s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Fira Code', monospace;
-      background: radial-gradient(ellipse at center, #0a0a0a 0%, #101010 100%);
-      color: var(--text);
+      font-family: 'Georgia', serif;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    /* Container for hero and background image */
+    .hero-container {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+    /* Background image element */
+    .bg-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    /* Menu toggle checkbox */
+    #menu-toggle { display: none; }
+    /* Menu panel */
+    .menu {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: #DFE2BF;
+      border-radius: 12px;
+      padding: 20px;
+      width: 180px;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      color: #333;
+      z-index: 5;
+    }
+    #menu-toggle:checked ~ .menu {
+      opacity: 0.8;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    .menu ul { list-style: none; }
+    .menu li { margin: 12px 0; }
+    .menu a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: inherit;
+    }
+    /* Hamburger icon */
+    .hamburger {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 24px;
+      height: 2px;
+      background-color: #fff;
+      cursor: pointer;
+      z-index: 6;
+    }
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 80%;
+      height: 2px;
+      background-color: #fff;
+    }
+    .hamburger::before { top: -6px; }
+    .hamburger::after { top: 6px; }
+    /* Close icon inside menu */
+    .close {
+      display: block;
+      text-align: right;
+      font-size: 20px;
+      cursor: pointer;
+      margin-bottom: 0px;
+    }
+    /* Hero section */
+    .hero {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+      max-width: 80%;
+      text-align: left;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    /* Page sections */
+    .page-section {
+      min-height: auto;
+      width: 100vw;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      min-height: 100vh;
+      justify-content: left;
+      align-items: left;
+      padding: 40px;
+      color: #000000;
+      background: #DBDEA9; 
     }
-
-    /* Blurred Nav */
-    nav {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      display: flex;
-      gap: 20px;
-      font-size: 0.9rem;
-      background: rgba(15, 15, 15, 0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 10px 15px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--muted);
-      transition: color var(--transition);
-    }
-
-    nav a:active {
-      color: var(--accent);
-    }
-
-    .hero {
-      text-align: center;
-      max-width: 700px;
-      margin-top: 100px;
-      animation: fadeIn 1.5s ease;
-    }
-
-    .hero h1 {
-      font-size: 2.8rem;
-      margin: 20px 0;
-      color: #fff;
-    }
-
-    .hero h2 {
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      color: var(--muted);
-    }
-
-    .hero p {
-      font-size: 1rem;
-      color: var(--text);
-      opacity: 0.85;
-      margin-top: 10px;
-    }
-
-    section {
-      margin-top: 60px;
-      max-width: 800px;
-      width: 100%;
-      padding: 0 10px;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
+    .page-section h2 {
+      font-size: 2.5rem;
       margin-bottom: 20px;
-      color: var(--accent);
-      border-bottom: 1px solid #222;
-      padding-bottom: 5px;
+    }
+    .page-section p {
+      font-size: 1.1rem;
+      max-width: 800px;
+      line-height: 1.6;
+      text-align: left;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      .hero {
+        left: 35%;
+        transform: translate(-50%, -50%);
+        text-align: left;
+      }
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1rem; }
+      .page-section h2 { font-size: 2rem; }
+      .page-section p { font-size: 1rem; }
     }
+.card-img {
+  display: block;
+  margin: 15px auto; /* Centers the image horizontally */
+  width: 90%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgb(254, 254, 254);
+}
+.contact-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Arial', sans-serif;
+  margin-top: 40px;
+}
 
-    .card {
-      background: var(--card-bg);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 16px 20px;
+  background-color: #fff;
+  box-sizing: border-box;
+  min-width: 220px;
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
+.card h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
 
-    .card h3 {
-      font-size: 1rem;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
+.card p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+}
 
-    .card p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
+.card a {
+  text-decoration: none;
+  margin-right: 16px;
+  color: #333;
+  font-size: 15px;
+}
 
-    .card a {
-      color: var(--accent);
-      font-size: 0.85rem;
-      text-decoration: none;
-    }
+.card a:hover {
+  color: #007bff;
+}
 
-    footer {
-      margin-top: 80px;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav>
-    <a href="https://www.linkedin.com/in/abin-joseph-46880727a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">LinkedIn</a>
-    <a href="https://www.instagram.com/abinjose_mulleria?igsh=YWw0M3RtMDhyODBq" target="_blank">insta</a>
-    <a href="https://x.com/AbinJos44798706?t=h77snx7ZcLtOyWqF2tttwg&s=08" target="_blank">X[Twitter]</a>
-    <a href="#blog">Blog</a>
-  </nav>
+  <!-- Hero container with background image -->
+  <div class="hero-container">
+    <img src="WhatsApp Image 2025-07-08 at 09.05.54_1ce7e590.jpg" alt="Background" class="bg-image" />
 
-  <!-- Hero Section -->
-  <div class="hero">
-    <h2>Hope to create a better future</h2>
-    <h1>Hai, I'm Abin</h1>
-    <p>passionate about animation, design, rockets, renewable energy, and building stuffs.</p>
+    <!-- Menu toggle checkbox -->
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="hamburger"></label>
+
+    <!-- Menu panel -->
+    <nav class="menu">
+      <label for="menu-toggle" class="close">✕</label>
+      <ul>
+        <li><a href="#about">ABOUT ME</a></li>
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="#contact">CONTACTS</a></li>
+        <!--<li><a href="#blog">BLOGS</a></li>-->
+      </ul>
+    </nav>
+
+    <!-- Hero section -->
+    <section class="hero">
+      <h1>Hai, I am Abin</h1>
+      <p>Front end dev | Model Rockets | Designer</p>
+    </section>
   </div>
 
-  <!-- Projects Section -->
-  <section>
-    <div class="section-title">Projects</div>
-    <div class="cards">
-      <div class="card">
-        <h3>Orcus</h3>
-        <p>Build for the Entrepreneur.</p>
-        <a href="project-orcus[wiki]">View Details →</a>
-      </div>
-      <div class="card">
-        <h3>Orcus4ai</h3>
-        <p>Are you trying to keep up with AI?</p>
-        <a href="project-orcus[4ai].html">View Details →</a>
-      </div>
-    </div>
+  <!-- About Me section -->
+  <section id="about" class="page-section">
+    <h2>About Me</h2>
+    <p>
+      I'm Abin, a passionate front-end developer with a knack for creating visually appealing and user-friendly websites. With a background in design and a love for model rocketry, I bring creativity and precision to every project. I specialize in HTML, CSS, JavaScript, and modern frameworks like React, aiming to craft seamless digital experiences. When I'm not coding, you can find me tinkering with rocket designs or exploring new design trends.
+    </p>
+    <br>
+    <p><strong>SKILLS</strong></p>
+    <br>
+    <ol>Front end dev</ol>
+   <hr style="border: none; height: 2px; background-color: #000; margin: 10px 0;width: 350px;">
+   <ol>Web design</ol>
+   <hr style="border: none; height: 2px; background-color: #000; margin: 10px 0;width: 350px;">
+   <ol>CAD</ol>
+   <hr style="border: none; height: 2px; background-color: #000; margin: 10px 0;width: 350px;">
+   <ol>Team Management</ol>
+   <hr style="border: none; height: 2px; background-color: #000; margin: 10px 0;width: 350px;">
   </section>
 
-  <!-- Blog Section -->
-  <section>
-    <div class="section-title" id="blog">Blog</div>
-    <P>Coming soon</P>
-    <!--<div class="cards">
-      <div class="card">
-        <h3>Why I Love Neural Nets</h3>
-        <p>A quick insight into how I began experimenting with ML in 12th grade.</p>
-        <a href="blog-neuralnets.html">Read More →</a>
-      </div>
-      <div class="card">
-        <h3>Design for Sustainability</h3>
-        <p>My approach to combining UI/UX with real-world energy data.</p>
-        <a href="blog-sustainability.html">Read More →</a>
-      </div>
-    </div>
-  </section> -->
+  <!-- Projects section -->
+<section id="projects" class="page-section" style="background-color: white;">
+   <h2>Projects</h2>
+<img src="orcus4ai-protfolio-2.png" alt="Graphic work" class="card-img">
+<p>[Present]</p>
+<img src="rocket.png" alt="Graphic work" class="card-img">
+<p>[Present]</p>
+<img src="orcus.wiki-protfolio.jpg" alt="Graphic work" class="card-img">
+<p>[Discontinued]</p>
+</section>
 
-  <footer>
-    &copy; 2025 Abin Joseph. All rights reserved.
-  </footer>
+<section id="contact" class="page-section" style="background-color: rgb(255, 255, 255);">
+<div class="contact-row">
+  <div class="card">
+    <h3>Email</h3>
+    <p>adieldesign@proton.me</p>
+  </div>
+  <div class="card">
+    <h3>Socials</h3>
+    <p>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+    </p>
+  </div>
+</div>
+
+<footer style="display: flex; color: #333; text-align: center; margin-top: 20px; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;"><p>&#169; 2025 ABIN</p></footer>
+</section>
 </body>
 </html>
