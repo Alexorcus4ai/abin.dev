@@ -113,7 +113,7 @@
     .page-section p { font-size: clamp(1rem, 2.5vw, 1.1rem); max-width: 100%; line-height: 1.6; margin-bottom: 1rem; }
 
     /* Skills list */
-    .skills { list-style: none; margin-top: 0.5rem; }
+    .skills { list-style: none; margin-top: 0rem; }
     .skills li {
       font-size: clamp(1rem, 2.5vw, 1.1rem);
       font-weight: 500;
@@ -129,19 +129,56 @@
       width: 350px;
       height: 0.125rem;
       background-color: #000000;
-      
     }
 
-    /* Projects grid */
+    /* Projects carousel */
     .projects-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      display: flex;
       gap: 1rem;
-      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
     }
-    .project-item { display: flex; flex-direction: column; align-items: center; }
-    .card-img { width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); background: #fff; }
-    .project-item p { margin-top: 0.5rem; color: #000; font-weight: 500; }
+    .project-item {
+      flex: 0 0 80%;
+      max-width: 300px;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .card-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .caption {
+      padding: 0.75rem;
+      font-weight: 600;
+      color: #333;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+    .caption .status {
+      display: block;
+      margin-top: 0.25rem;
+      font-weight: 500;
+      color: #666;
+    }
+    .caption .status.discontinued {
+      color: #a00;
+    }
+    @media (min-width: 480px) {
+      .project-item { flex: 0 0 45%; }
+    }
+    @media (min-width: 768px) {
+      .project-item { flex: 0 0 30%; }
+    }
 
     /* Contact cards */
     .contact-row {
@@ -192,7 +229,7 @@
 
   <section id="about" class="page-section">
     <h2>About Me</h2>
-    <p>I\'m Abin, a passionate front-end developer with a knack for creating visually appealing and user-friendly websites. With a background in design and a love for model rocketry, I bring creativity and precision to every project. I specialize in HTML, CSS, JavaScript, and modern frameworks like React, aiming to craft seamless digital experiences. When I\'m not coding, you can find me tinkering with rocket designs or exploring new design trends.</p>
+    <p>I'm Abin, a passionate front-end developer with a knack for creating visually appealing and user-friendly websites. With a background in design and a love for model rocketry, I bring creativity and precision to every project. I specialize in HTML, CSS, JavaScript, and modern frameworks like React, aiming to craft seamless digital experiences. When I'm not coding, you can find me tinkering with rocket designs or exploring new design trends.</p>
     <p><strong>SKILLS</strong></p>
     <ul class="skills">
       <li>Front end dev</li>
@@ -206,16 +243,17 @@
     <h2>Projects</h2>
     <div class="projects-container">
       <div class="project-item">
-        <img src="orcus4ai-protfolio-2.png" alt="Graphic work" class="card-img">
-        <p>[Present]</p>
+        <img src="orcus4ai-protfolio-2.png" alt="Orcus4AI Portfolio" class="card-img">
+        <p class="caption">Orcus4AI Platform <span class="status">[Present]</span> <a href="https://orcus4ai.com/">View</a> </p>
+        
       </div>
       <div class="project-item">
-        <img src="rocket.png" alt="Graphic work" class="card-img">
-        <p>[Present]</p>
+        <img src="rocket.png" alt="Model Rocket" class="card-img">
+        <p class="caption">Model Rocket Showcase | model rocket with an active guidance system <span class="status">[Present]</span></p>
       </div>
       <div class="project-item">
-        <img src="orcus.wiki-protfolio.jpg" alt="Graphic work" class="card-img">
-        <p>[Discontinued]</p>
+        <img src="orcus.wiki-protfolio.jpg" alt="Orcus Wiki" class="card-img">
+        <p class="caption">Orcus Wiki <span class="status discontinued">[Discontinued]</span></p>
       </div>
     </div>
   </section>
@@ -229,8 +267,8 @@
       <div class="card">
         <h3>Socials</h3>
         <p>
-          <a href="#">Twitter</a>
-          <a href="#">LinkedIn</a>
+          <a href="https://x.com/AbinJos44798706?t=ArJxtcvJEPiAnTK5AM18GA&s=08">Twitter</a>
+          <a href="https://www.linkedin.com/in/abin-joseph-46880727a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a>
         </p>
       </div>
     </div>
